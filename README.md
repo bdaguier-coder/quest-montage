@@ -6,7 +6,7 @@ Studio de storyboard cinématographique et de prémontage : plans, pistes narrat
 
 L’interface est prête pour GitHub Pages à l’adresse https://bdaguier-coder.github.io/quest-montage/.
 
-Activer une seule fois **Settings → Pages → Deploy from a branch → main → /docs → Save**. Le dossier `docs/` contient l’interface publiable et son service worker. Les changements publiés sur `main` sont ensuite pris en charge par GitHub Pages.
+GitHub Pages accepte désormais les deux réglages **main → /(root)** et **main → /docs**. La racine et `docs/` contiennent la même interface et son service worker. Les changements publiés sur `main` sont ensuite pris en charge par GitHub Pages.
 
 ## Films et photos privés
 
@@ -25,7 +25,7 @@ Les photos et vidéos importées dans le storyboard sont conservées en ligne et
 - `npm ci`
 - `npm run build` : construit le Worker de l’application d’origine et ses ressources.
 - `npm test` : vérifie le prémontage, FCPXML, le storyboard, le stockage, les conflits, l’historique et la passerelle privée.
-- `npm run build:pages` : copie l’interface publique dans `docs/` après toute modification de `client/`.
+- `npm run build:pages` : copie l’interface publique à la racine et dans `docs/` après toute modification de `client/`.
 - `npm run dev` : prévisualisation locale avec une identité de test et un stockage distinct de la production.
 
 `client/` contient l’interface ; `server/worker.mjs` les API ; `db/` et `drizzle/` le schéma et les migrations D1 ; R2 utilise la liaison `MEDIA`. Le manifeste `.openai/hosting.json` conserve l’identité de l’application existante. Aucune clé ou donnée d’authentification n’y figure.
