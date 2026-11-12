@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.openai/local-preview/
+.openai/assets.generated.mjs
+.openai/local-preview.sqlite*
+.env*
+.openai/previous-static/
