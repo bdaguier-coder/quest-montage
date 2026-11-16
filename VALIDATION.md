@@ -82,3 +82,9 @@ Interface statique générée dans docs/. Enregistrement, historique et médias 
 Essais interactifs en prévisualisation avec identité locale fictive : titre et durée dans la session A, titre et notes dans la session B reçus par A ; image PNG de test 640 × 360 retrouvée par B puis après rechargement. Ces essais utilisent deux onglets d'un même profil ; les clients indépendants, la coupure et les conflits sont couverts par les tests automatisés. Mac et iPhone physiques, sauvegarde locale iPhone, véritable coupure radio, installation PWA et mise à jour physique restent à vérifier. La mission 1 n'est pas déclarée achevée. Final Cut Pro entrant reste en attente.
 
 L'adresse officielle privée accède directement à D1/R2, sans popup. L'ancienne page GitHub est conservée pour récupérer ses films locaux et affiche l'adresse officielle. Les deux cibles Pages (racine et docs/) sont générées depuis client/.
+
+## 4.3.1 — film vide sur iPhone
+
+Capture réelle reçue : film de démarrage vide et statut Synchronisé. Défaut de sélection corrigé sans supprimer les films : priorité au travail existant au démarrage, aucun auto-choix d’un film distant vide, sélection protégée pendant une saisie ou pour un projet personnalisé. Statut et message explicites quand aucun film avec du contenu n’a été retrouvé.
+
+40 tests automatisés réussis, dont 5 cas de sélection et de protection. Reproduction interactive isolée : dernier film vide mémorisé, rechargement, retour au film contenant le plan et l’image de test. Les 27 plans du compte réel sur iPhone ne sont pas encore confirmés.

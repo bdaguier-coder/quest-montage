@@ -1,4 +1,4 @@
-# QUEST Montage — 4.3
+# QUEST Montage — 4.3.1
 
 Studio de storyboard et de prémontage : plans, pistes narratives, bible visuelle, photos, prompts, historique, sauvegarde complète, PDF et export Final Cut Pro.
 
@@ -7,6 +7,8 @@ Studio de storyboard et de prémontage : plans, pistes narratives, bible visuell
 Ouvrir **https://quest-montage.korben.chatgpt.site/** avec le même compte ChatGPT sur les deux appareils. Cette adresse accède directement au stockage privé ; aucune fenêtre de synchronisation supplémentaire n'est nécessaire.
 
 L'adresse GitHub Pages https://bdaguier-coder.github.io/quest-montage/ reste accessible pour récupérer les films qui n'existeraient que dans son stockage local. Une bannière indique l'adresse officielle. Avant de changer d'adresse, exporter la **Sauvegarde complète** de chaque film modifié uniquement sur GitHub puis la réimporter dans l'atelier officiel. L'import crée un film indépendant ; il ne fusionne ni ne remplace silencieusement les films existants. La passerelle de compatibilité GitHub nécessite encore sa fenêtre de connexion ; ce n'est pas le fonctionnement de l'adresse officielle.
+
+La 4.3.1 corrige l’ouverture sur un ancien brouillon vide : un film existant contenant du travail est privilégié, et un brouillon vide reçu du serveur ne bloque plus cette récupération. Les brouillons sont conservés. Si aucun film avec du contenu n’est retrouvé, l’interface l’indique clairement.
 
 ## Données et sauvegardes
 

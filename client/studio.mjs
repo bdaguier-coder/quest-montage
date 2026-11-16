@@ -1,4 +1,4 @@
-import {cloudFetch,usesCloudBridge} from './cloud-client.mjs?v=studio-4f';
+import {cloudFetch,usesCloudBridge} from './cloud-client.mjs?v=studio-4g';
 import {uid,newProject,time,serialize,restore,cloneProject} from './core.mjs';
 import {FIELDS,STATES,ensure,shot,ordered,duration,place,duplicate,remove,recover,grokPrompt,animationPrompt,demoStory,validateStory} from './story-core.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

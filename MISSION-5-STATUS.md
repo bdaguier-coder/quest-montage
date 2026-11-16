@@ -1,6 +1,6 @@
 # QUEST Montage 5.0 — état au 16 novembre 2026
 
-Mission 1 en cours, mission 2 non commencée. La version de sécurisation publiée est la 4.3.0.
+Mission 1 en cours, mission 2 non commencée. La version de correction est la 4.3.1.
 
 ## Faits vérifiés
 
@@ -31,3 +31,11 @@ Sur les appareils réels : vérifier leurs sauvegardes et leurs éventuels films
 Les vidéos originales de l'espace Montage et leurs miniatures restent locales. La reprise d'une application suspendue par iOS s'effectue à sa réouverture ; aucun fonctionnement permanent en arrière-plan n'est annoncé.
 
 La connexion entrante Final Cut Pro n'est pas commencée, conformément à l'ordre des missions. Aucun import manuel n'est présenté comme une synchronisation automatique.
+
+## Signalement iPhone et correction 4.3.1
+
+Une capture de l’iPhone montre « Mon premier film », 0 plan, 00:00, avec la mention Synchronisé. Cette preuve contredit la récupération attendue des 27 plans ; elle ne prouve pas leur suppression et ne permet pas de connaître le contenu du menu Mes films.
+
+Le code conservait le dernier brouillon vide lors des visites suivantes et pouvait sélectionner un brouillon vide distant avant un film réel. La correction privilégie le travail existant à l’ouverture, refuse de remplacer une saisie active ou un projet personnalisé, conserve les anciens brouillons et n’envoie pas de nouveaux films de démarrage vides. Si aucun film avec du contenu n’est retrouvé, l’interface affiche « Aucun film retrouvé » et propose Mes films ou la restauration d’une sauvegarde.
+
+40 tests automatisés passent. Essai navigateur isolé : création d’un film vide de démarrage, rechargement, récupération du film contenant le plan et son image. La présence des 27 plans dans le stockage central du compte réel reste non vérifiée. La validation iPhone est en échec à ce stade, en attente de l’effet de cette correction et de l’examen de Mes films si nécessaire.

@@ -1,5 +1,5 @@
-import {cloudFetch} from './cloud-client.mjs?v=studio-4f';
-import {uid} from './core.mjs?v=studio-4f';
+import {cloudFetch} from './cloud-client.mjs?v=studio-4g';
+import {uid} from './core.mjs?v=studio-4g';
 const pick=(o,keys)=>Object.fromEntries(keys.filter(k=>o[k]!==undefined).map(k=>[k,o[k]]));
 export function cloudData(p){
  const out=pick(p,['schema','id','name','createdAt','updatedAt','demo','storyboard']);
