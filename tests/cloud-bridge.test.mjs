@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {mountCloudBridge,allowedCloudRequest,ALLOWED_ORIGIN} from '../client/cloud-bridge.mjs';
-import {PROTOCOL,CLOUD_ORIGIN,connectCloud,cloudFetch} from '../client/cloud-client.mjs?v=studio-4e';
+import {PROTOCOL,CLOUD_ORIGIN,connectCloud,cloudFetch} from '../client/cloud-client.mjs?v=studio-4f';
 
 test('La passerelle limite les échanges au propriétaire de l’atelier, à son origine et aux API du film',async()=>{
  let listener,calls=0;const messages=[],status={textContent:''},nonce='abcdefghijklmnopqrstuv';

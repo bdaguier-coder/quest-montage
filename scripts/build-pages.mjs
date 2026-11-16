@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-// Support both Pages settings: / (root) and /docs, with the same interface.
+// Keep both supported Pages publish directories consistent. No runtime data is copied.
 const entries=(await fs.readdir('client')).filter(name=>!['sync-bridge.html','cloud-bridge.mjs'].includes(name));
 for(const directory of ['docs','.']){
  await fs.mkdir(directory,{recursive:true});

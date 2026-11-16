@@ -1,5 +1,5 @@
-import {cloudFetch} from './cloud-client.mjs?v=studio-4e';
-import {uid} from './core.mjs?v=studio-4e';
+import {cloudFetch} from './cloud-client.mjs?v=studio-4f';
+import {uid} from './core.mjs?v=studio-4f';
 const pick=(o,keys)=>Object.fromEntries(keys.filter(k=>o[k]!==undefined).map(k=>[k,o[k]]));
 export function cloudData(p){
  const out=pick(p,['schema','id','name','createdAt','updatedAt','demo','storyboard']);
@@ -12,7 +12,16 @@ export const isDirty=p=>!p._sync?.revision||p._sync.fingerprint!==signature(p);
 // Recheck after a queued local write; the user may have typed while it completed.
 export const canApplyRemote=(local,expected)=>expected===null?!local:!!local&&signature(local)===expected;
 export function mergeRemote(remote,local){const p=structuredClone(remote.project);p.media=p.media.map(m=>{const old=local?.media.find(o=>o.id===m.id);return {...m,...(old?.thumb?{thumb:old.thumb}:{}),...(old?.previewable!==undefined?{previewable:old.previewable}:{})};});p._sync={revision:remote.revision,fingerprint:signature(p)};return p;}
+export function pendingMedia(projects){
+ const ids=new Set();
+ for(const p of projects){const s=p.storyboard;if(!s)continue;
+  for(const item of [...(s.shots||[]),...(s.bible||[]),...(s.trash||[]).map(r=>r.shot)])
+   for(const m of item?.media||[])if(!m.remote)ids.add(m.id);
+ }
+ return ids.size;
+}
 class AuthRequired extends Error{}
+class SyncFailure extends Error{}
 export class FilmSync {
  constructor({list,store,onState=()=>{},onConflict=()=>{},blocked=()=>false,transport=(...args)=>cloudFetch(...args)}){Object.assign(this,{list,store,onState,onConflict,blocked,transport});this.running=null;this.repeat=false;}
  async request(path,options){const response=await this.transport(path,{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(12000),...options});if([401,403].includes(response.status)||!response.headers.get('content-type')?.includes('application/json'))throw new AuthRequired();const data=await response.json();return {response,data};}
@@ -24,7 +33,7 @@ export class FilmSync {
  async run(){
   this.onState('syncing');
   try{
-   const pull=await this.request('/api/sync/films');if(!pull.response.ok)throw new Error('sync_unavailable');
+   const pull=await this.request('/api/sync/films');if(!pull.response.ok)throw new SyncFailure('sync_unavailable');
    let deferred=false;
    for(const remote of [...pull.data.films].sort((a,b)=>Number(b.revision>1)-Number(a.revision>1)||(b.updatedAt||0)-(a.updatedAt||0))){const local=this.list().find(p=>p.id===remote.project.id);if(this.blocked(remote.project.id,'pull')){if(!local||remote.revision>(local._sync?.revision||0))deferred=true;continue;}if(!local){if(await this.store(mergeRemote(remote),{kind:'remote',expectedFingerprint:null})===false)deferred=true;continue;}if(remote.revision>(local._sync?.revision||0)){if(isDirty(local)&&signature(local)!==signature(remote.project))await this.conflict(local,remote);else if(await this.store(mergeRemote(remote,local),{kind:'remote',expectedFingerprint:signature(local)})===false)deferred=true;}}
    for(const local of this.list()){
@@ -33,11 +42,11 @@ export class FilmSync {
     const result=await this.request('/api/sync/films/'+encodeURIComponent(local.id),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({project:sent,baseRevision})});
     const current=this.list().find(p=>p.id===local.id);if(!current)continue;
     if(result.response.status===409){await this.conflict(current,result.data.remote);continue;}
-    if(!result.response.ok)throw new Error('sync_unavailable');
+    if(!result.response.ok)throw new SyncFailure('sync_unavailable');
     current._sync={revision:result.data.revision,fingerprint};await this.store(current,{kind:'ack'});
    }
-   const pending=deferred||this.list().some(isDirty);this.onState(pending?'pending':'synced');return true;
-  }catch(error){console.warn('QUEST sync:',error.message);this.onState(error instanceof AuthRequired?'auth':'offline');return false;}
+   const pending=deferred||this.list().some(isDirty)||pendingMedia(this.list())>0;this.onState(pending?'pending':'synced');return true;
+  }catch(error){console.warn('QUEST sync:',error.message);this.onState(error instanceof AuthRequired?'auth':error instanceof SyncFailure?'error':'offline');return false;}
  }
  async once(){if(this.running){this.repeat=true;return this.running;}this.running=(async()=>{for(let i=0;i<3;i++){this.repeat=false;const ok=await this.run();if(!ok||!this.repeat)break;}})();try{await this.running;}finally{this.running=null;}}
 }

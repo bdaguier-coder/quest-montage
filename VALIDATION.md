@@ -74,3 +74,11 @@ Passerelle privée limitée à l’origine `https://bdaguier-coder.github.io`, a
 Interface statique générée dans docs/. Enregistrement, historique et médias utilisent la même API que l’application d’origine. La fenêtre de synchronisation doit rester ouverte ; sa fermeture déclenche une demande de reconnexion et les modifications locales sont conservées. L’ouverture sur un nouvel appareil privilégie les films déjà modifiés plutôt que les démonstrations vierges.
 
 33 tests automatisés, dont validation de l’origine, du nonce, de l’émetteur, des chemins et des méthodes, transfert de films et de médias et détection d’une fenêtre fermée. Le contrôle avec les comptes réels sur GitHub Pages reste à effectuer après activation de Pages.
+
+## 4.3 — état au 16 novembre 2026
+
+35 tests automatisés réussis, dont médias non envoyés interdisant l'état Synchronisé et distinction entre panne réseau, erreur serveur et authentification manquante. Worker construit. Sauvegarde réelle du Mac : 27 plans et 3 médias, JSON et données encodées valides, clone structurel indépendant vérifié. Aucune donnée privée dans GitHub.
+
+Essais interactifs en prévisualisation avec identité locale fictive : titre et durée dans la session A, titre et notes dans la session B reçus par A ; image PNG de test 640 × 360 retrouvée par B puis après rechargement. Ces essais utilisent deux onglets d'un même profil ; les clients indépendants, la coupure et les conflits sont couverts par les tests automatisés. Mac et iPhone physiques, sauvegarde locale iPhone, véritable coupure radio, installation PWA et mise à jour physique restent à vérifier. La mission 1 n'est pas déclarée achevée. Final Cut Pro entrant reste en attente.
+
+L'adresse officielle privée accède directement à D1/R2, sans popup. L'ancienne page GitHub est conservée pour récupérer ses films locaux et affiche l'adresse officielle. Les deux cibles Pages (racine et docs/) sont générées depuis client/.
